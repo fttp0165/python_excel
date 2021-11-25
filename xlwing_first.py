@@ -2,14 +2,16 @@ import xlwings as xw
 import os
 currentPath=os.getcwd()
 print(currentPath)
-excelPath="D:\Benny_document\python\data"
-excelFileName="9130i-pwr-chn.xlsx"
-excelFilePath=excelPath +"\\" + excelFileName
-wb=xw.Book(excelFilePath)
+excel_path="D:\Benny_document\python\data"
+excel_file_name="9130i-pwr-chn.xlsx"
+excel_file_path = excel_path + "\\" + excel_file_name
+current_path=os.getcwd()
+print(current_path)
+wb = xw.Book(excel_file_path)
 app = xw.apps.active
-sheetNames=[]
+sheet_names=[]
 #for name in wb.sheets:
-#    sheetNames.append(name.name)
+#    sheet_names.append(name.name)
     #print(name.name)
 
 #sheets.count show sheets total
@@ -28,19 +30,18 @@ sheetNames=[]
 #print(sheet.cells(3,4).value)
 print("------------------")
 #merge_area  return range <Range [9130i-pwr-chn.xlsx]5GHz -A M!$A$3:$C$6>
-print(xw.Range('A3').merge_area)
-print(xw.Range('B3').merge_area)
-print(xw.Range('C3').merge_area)
-print(xw.Range('D3').merge_area)
-print(xw.Range('C3').merge_area)
-mergeRange=str(xw.Range('C3').merge_area)
-print(len(mergeRange))
-print(mergeRange.find("$"))
-mergeRange=mergeRange[37:46]
-mergeRange=mergeRange.replace("$",'')
-mergeRange=mergeRange.split(':')
-print(mergeRange)
-
+#print(xw.Range('A3').merge_area)
+#print(xw.Range('B3').merge_area)
+#print(xw.Range('C3').merge_area)
+#print(xw.Range('D3').merge_area)
+#print(xw.Range('C3').merge_area)
+#mergeRange=str(xw.Range('C3').merge_area)
+#print(len(mergeRange))
+#print(mergeRange.find("$"))
+#mergeRange=mergeRange[mergeRange.find("$"):len(mergeRange)-1]
+#mergeRange=mergeRange.replace("$",'')
+#mergeRange=mergeRange.split(':')
+#print(mergeRange)
 
 def searchMergeRange(location):
     merageRange=str(xw.Range(location).merge_area)
@@ -76,8 +77,13 @@ def showMergeRange(rangeList):
                 range_cell.append(chr(loc_character)+str(loc_number))
     return range_cell
 
-location=searchMergeRange('A3')
-print(location)
-print(showMergeRange(location))
-#wb.close()   #只關掉workBook
-app.quit()
+def main():
+    location=searchMergeRange('A3')
+    print(location)
+    print(showMergeRange(location))
+    #wb.close()   #只關掉workBook
+    app.quit()
+
+
+if __name__ == "__main__":
+   main()
